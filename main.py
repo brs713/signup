@@ -91,16 +91,14 @@ class MainHandler(webapp2.RequestHandler):
                     <tr>
                         <td><label for="password">Password</label></td>
                         <td>
-<!-- CHANGE TYPE TO PASSWORD -->
-                            <input name="password" required="" type="text">
+                            <input name="password" required="" type="password">
                             <span class="error"></span>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="verify">Verify Password</label></td>
                         <td>
-<!-- CHANGE TYPE TO PASSWORD -->
-                            <input name="verify" required="" type="text">
+                            <input name="verify" required="" type="password">
                             <span class="error"></span>
                         </td>
                     </tr>
@@ -115,24 +113,17 @@ class MainHandler(webapp2.RequestHandler):
                 <input type="submit">
             </form>
         """
-        
-#FROM FLICKLIST
-        #this_error = self.request.get("error")
-        #error_element = "<p class='error'>some message" + this_error + "</p>" if this_error else ""  #  
-#END FROM FLICKLIST
-        
+                
         html = html_opener + form_html + html_closer
         self.response.write(html)
         
-    def post(self):
-        
+    def post(self):       
                 
         usr = self.request.get("username")
         pwd = self.request.get("password")
         ver = self.request.get("verify")
         eml = self.request.get("email")
 
-#FIX THIS
         user_error = "Need a valid user name." if (valid_username(usr) == None) else ""
     
         pwd_error = "That's a crappy password; I can't let you use that." if (valid_password(pwd) == None) else ""
@@ -142,16 +133,11 @@ class MainHandler(webapp2.RequestHandler):
         email_error = "No.   Just...   no." if (valid_email(eml) == None) else ""
 
         
-#END FIX THIS
-
-        
         form_username = row.format("username", "Username", usr, "text", user_error)
         
-    #CHANGE "text" to "password"
-        form_pwd1 = row.format("password", "Password", "", "text", pwd_error)
+        form_pwd1 = row.format("password", "Password", "", "password", pwd_error)
 
-    #CHANGE "text" to "password"    
-        form_pwd2 = row.format("verify", "Verify Password", "", "text", pwdver_error)
+        form_pwd2 = row.format("verify", "Verify Password", "", "password", pwdver_error)
         
         form_email = row.format("email", "Email", eml, "email", email_error)
         
